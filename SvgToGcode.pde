@@ -8,7 +8,7 @@ RPoint[][] pointPaths;
 String fileName = "../input/image.svg"; // Name of the file you want to convert, as to be in the same directory
 String outputFile = "output/gcode.nc";
 String outputImage = "output/preview.png";
-String settingsPath = "setting.json";
+String settingsPath = "settings.json";
 
 String penUp= "M05"; // Command to control the pen, it change beetween differents firmware
 String penDown = "M03 S20";// This settings was made for my custom CNC Drawing machine
@@ -20,15 +20,14 @@ float segmentationAccuracy = 1;
 float xmag, ymag, newYmag, newXmag = 0;
 float z = 0;
 
-boolean ignoringStyles = false;
-
 void setup(){
-  size(600, 600, P3D);
+  size(450, 600);
   // VERY IMPORTANT: Allways initialize the library before using it
+  setSettings();
   
   println("loading SVG");
   RG.init(this);
-  RG.ignoreStyles(ignoringStyles);
+  RG.ignoreStyles(true);
   
   RG.setPolygonizer(RG.UNIFORMSTEP);
   RG.setPolygonizerStep(segmentationAccuracy);
@@ -42,19 +41,6 @@ void setup(){
   println("Shape loaded");
   
   translate(width/2, height/2);
-  
-  newXmag = mouseX/float(width) * TWO_PI;
-  newYmag = mouseY/float(height) * TWO_PI;
-  
-  float diff = xmag-newXmag;
-  if (abs(diff) >  0.01) { xmag -= diff/4.0; }
-  
-  diff = ymag-newYmag;
-  if (abs(diff) >  0.01) { ymag -= diff/4.0; }
-  
-  rotateX(-ymag); 
-  rotateY(-xmag); 
-  
   background(255);
   stroke(0);
   noFill();
