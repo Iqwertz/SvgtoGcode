@@ -7,6 +7,9 @@ RPoint[][] pointPaths;
 
 String fileName = "../input/image.svg"; // Name of the file you want to convert, as to be in the same directory
 String outputFile = "output/gcode.nc";
+String outputImage = "output/preview.png";
+String settingsPath = "setting.json";
+
 String penUp= "M05"; // Command to control the pen, it change beetween differents firmware
 String penDown = "M03 S20";// This settings was made for my custom CNC Drawing machine
 float[] xcoord = { 0,100};// These variables define the minimum and maximum position of each axis for your output GCode 
@@ -79,7 +82,7 @@ void setup(){
   OUTPUT.flush();
   OUTPUT.close();
   
-  save("output/preview.png");
+  save(outputImage);
   
   println("finished");
   noLoop();
@@ -89,7 +92,8 @@ void draw(){
   exit();
 }
 
-void mousePressed(){
-  ignoringStyles = !ignoringStyles;
-  RG.ignoreStyles(ignoringStyles);
+void setSettings() { 
+    JSONObject json = loadJSONObject(settingsPath);
+    floatingPoints = json.getInt("floatingPoints");
+    segmentationAccuracy = json.getFloat("segmentationAccuracy");
 }
