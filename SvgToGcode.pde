@@ -5,7 +5,7 @@ PrintWriter OUTPUT;
 RShape grp;
 RPoint[][] pointPaths;
 
-String fileName = "../input/image.svg"; // Name of the file you want to convert, as to be in the same directory
+String fileName = "../input/image1.svg"; // Name of the file you want to convert, as to be in the same directory
 String outputFile = "output/gcode.nc";
 String outputImage = "output/preview.png";
 String settingsPath = "settings.json";
@@ -34,6 +34,7 @@ void setup() {
 
   grp = RG.loadShape(fileName);
   grp.centerIn(g, 100, 1, 1);
+  //grp.rotate(PI/2,grp.getCenter());
 
 
   pointPaths = grp.getPointsInPaths();
@@ -56,11 +57,10 @@ void setup() {
         if (!Float.isNaN(pointPaths[i][j].y) && !Float.isNaN(pointPaths[i][j].x)) {
           float xmaped = map(pointPaths[i][j].x, -200, 200, xcoord[1], xcoord[0]);
           float ymaped = map(pointPaths[i][j].y, -200, 200, ycoord[0], ycoord[1]);
-          if (j == 1) {
-            OUTPUT.println(penDown);
-          }
-          String gcodeLine = "G1X"+ nf(xmaped, 0, floatingPoints)+"Y"+nf(ymaped, 0, floatingPoints);
+          
+          String gcodeLine = "G1X"+nf(ymaped, 0, floatingPoints) +"Y"+nf(xmaped, 0, floatingPoints);  //x and y switched to match preview
           gcodeLine = gcodeLine.replace(',', '.');
+          OUTPUT.println(gcodeLine);
         } else {
           println(pointPaths[i][j]);
         }
