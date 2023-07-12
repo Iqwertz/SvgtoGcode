@@ -5,7 +5,7 @@ PrintWriter OUTPUT;
 RShape grp;
 RPoint[][] pointPaths;
 
-String fileName = "../input/image.svg"; // Name of the file you want to convert, as to be in the same directory
+String fileName = "../input/arc.svg"; // Name of the file you want to convert, as to be in the same directory
 String outputFile = "output/gcode.nc";
 String outputImage = "output/preview.png";
 String settingsPath = "settings.json";
