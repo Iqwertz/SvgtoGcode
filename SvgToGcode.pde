@@ -5,7 +5,7 @@ PrintWriter OUTPUT;
 RShape grp;
 RPoint[][] pointPaths;
 
-String fileName = "../input/arc.svg"; // Name of the file you want to convert, as to be in the same directory
+String fileName = "../input/kurven.svg"; // Name of the file you want to convert, as to be in the same directory
 String outputFile = "output/gcode.nc";
 String outputImage = "output/preview.png";
 String settingsPath = "settings.json";
@@ -27,7 +27,7 @@ void setup() {
 
   println("loading SVG");
   RG.init(this);
-  RG.ignoreStyles(true);
+  RG.ignoreStyles(false);
 
   RG.setPolygonizer(RG.UNIFORMSTEP);
   RG.setPolygonizerStep(segmentationAccuracy);
